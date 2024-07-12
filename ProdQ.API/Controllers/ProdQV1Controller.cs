@@ -23,15 +23,21 @@ namespace ProdQ.API.Controllers
         // GET: api/<ProdQV1Controller>
         [HttpGet]
         public IEnumerable<string> Get()
-        {            
+        {
             return new string[] { "V1 value01", "V1 value 2" };
         }
 
         //[HttpGet]
-        //public Task<List<User>> GetSample()
+        //public IEnumerable<string> Getssss()
         //{
-        //    return _mediator.Send(new CreateSample());            
+        //    return new string[] { "V1 value01", "V1 value 2" };
         //}
+
+        [HttpGet("byname{name}") ]
+        public async Task<List<User>> GetSample(string name)
+        {
+            return await _mediator.Send(new CreateSample());
+        }
 
         // GET api/<ProdQV1Controller>/5
         [HttpGet("{id}")]

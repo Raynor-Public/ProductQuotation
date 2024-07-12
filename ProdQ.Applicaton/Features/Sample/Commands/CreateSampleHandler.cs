@@ -18,14 +18,16 @@ namespace ProdQ.Applicaton.Features.Sample.Commands
 
         public Task<List<User>> Handle(CreateSample request, CancellationToken cancellationToken)
         {
-            try
-            {
-                return Task.FromResult(users.ToList());
-            }
-            catch(Exception ex)
-            {
-                throw new NotImplementedException();
-            }            
+            //try
+            //{
+            //    return Task.FromResult(users.ToList());
+            //}
+            //catch(Exception ex)
+            //{
+            //    throw new NotImplementedException();
+            //}            
+
+            return Task.FromResult(users.ToList());
         }
     }
 }
