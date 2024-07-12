@@ -58,67 +58,27 @@ namespace ProdQ.API
                 ApiExplorerOptions.GroupNameFormat = "'v'V";
                 ApiExplorerOptions.SubstituteApiVersionInUrl = true;                
             });
-
-            //services.AddApiExplorer(options =>
-            //{
-            //    options.GroupNameFormat = "'v'V";
-            //    options.SubstituteApiVersionInUrl = true;
-            //});
-
-            // Add and configure API Explorer for versioning
-            //services.AddEndpointsApiExplorer(options =>
-            //{
-            //    options.GroupNameFormat = "'v'V";
-            //    options.SubstituteApiVersionInUrl = true;
-            //});
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if(env.IsDevelopment())
-            {
-                //app.UseSwagger();
-                //app.UseSwaggerUI();
-            }
-            else
-            {
-                
-            }            
-
+        {            
             app.UseHttpsRedirection();                        
             app.UseStaticFiles();
-            app.UseRouting();
-
-            //app.UseAuthentication();
-            //app.Use(async (context, next) =>
-            //{
-            //    if (!context.User.Identity?.IsAuthenticated ?? false) //nullable and set default as false.
-            //    {
-            //        context.Response.StatusCode = 401;
-            //        await context.Response.WriteAsync("Not Authenticated");
-            //    }
-            //    else await next();
-            //});
+            app.UseRouting();         
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
 
-            // Enable middleware to serve generated Swagger as JSON endpoints
+            // Enable Swagger middleware to serve generated Swagger as JSON endpoints
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProdQ API V1");
                 c.SwaggerEndpoint("/swagger/v2/swagger.json", "ProdQ API V2");
-            });
-
-            //app.UseAuthorization();
-            //app.MapControllers();
-            //app.Run();
+            });            
         }
     }
 }
