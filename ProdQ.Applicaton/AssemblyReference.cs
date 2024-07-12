@@ -5,10 +5,11 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProdQ.Infrastructure
+namespace ProdQ.Applicaton
 {
     public static class AssemblyReference
-    {
+    {        
         public static readonly Assembly Assembly = typeof(AssemblyReference).Assembly;
+
     }
 }

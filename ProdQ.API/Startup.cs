@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Asp.Versioning;
 using Microsoft.Extensions.Options;
 using Asp.Versioning.ApiExplorer;
+using MediatR;
 //using Microsoft.AspNetCore.Mvc.Versioning;
 namespace ProdQ.API
 {
@@ -30,9 +31,14 @@ namespace ProdQ.API
                 c.SwaggerDoc("v2", new OpenApiInfo { Title = "Product-Quotation Ver 2.0", Version = "v2" });
             });
 
+            //Adding References from Infrastructure
             services.Scan(s => s
-                .FromAssemblies(ProdQ.Infrastructure.AssemblyReference.assembly)
+                .FromAssemblies(ProdQ.Infrastructure.AssemblyReference.Assembly)
             );
+
+            //MediaTR setting from ProdQ Application project.
+            services.AddMediatR(ProdQ.Applicaton.AssemblyReference.Assembly);//
+
             services.AddMicrosoftIdentityWebApiAuthentication(Configuration); //authorization
 
             services.AddApiVersioning(options =>

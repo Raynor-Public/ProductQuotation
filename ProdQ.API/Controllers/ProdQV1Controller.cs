@@ -1,5 +1,8 @@
 ﻿using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ProdQ.Applicaton.Features.Sample.Commands;
+using ProdQ.Infrastructure.Data.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,12 +14,24 @@ namespace ProdQ.API.Controllers
     [Route(template:"api/v{version:apiVersion}/[controller]")] //The version is specified on the link, no manual input of version.
     public class ProdQV1Controller : ControllerBase
     {
+        private readonly IMediator _mediator;
+        public ProdQV1Controller(IMediator mediator) 
+        { 
+            _mediator = mediator;
+        }
+
         // GET: api/<ProdQV1Controller>
         [HttpGet]
         public IEnumerable<string> Get()
-        {
+        {            
             return new string[] { "V1 value01", "V1 value 2" };
         }
+
+        //[HttpGet]
+        //public Task<List<User>> GetSample()
+        //{
+        //    return _mediator.Send(new CreateSample());            
+        //}
 
         // GET api/<ProdQV1Controller>/5
         [HttpGet("{id}")]
