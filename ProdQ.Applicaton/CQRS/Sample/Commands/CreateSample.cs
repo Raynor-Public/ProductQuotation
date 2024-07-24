@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 
-namespace ProdQ.Applicaton.Features.Sample.Commands
+namespace ProdQ.Applicaton.CQRS.Sample.Commands
 {
     public record CreateSample() : ICommand<List<User>>
     {

@@ -1,0 +1,23 @@
+﻿using AutoMapper;
+using Azure.Identity;
+using ProdQ.Applicaton.DTO.Request;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ProdQ.Domain.Entities;
+using ProdQ.Applicaton.DTO.Response;
+
+namespace ProdQ.Applicaton.MappingProfiles
+{
+    public class AutoMapperConfigProfile : Profile
+    {
+        public AutoMapperConfigProfile() {
+
+            CreateMap<Client, ClientDTOResponse>()
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FirstName + " " + src.LastName))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Street + ", " + src.State + ", " + src.City + ", " + src.Country));
+        }
+    }
+}

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProdQ.Applicaton.Features.Sample.Queries
+namespace ProdQ.Applicaton.CQRS.Sample.Queries
 {
-    public class GetSampleHandler
+    public class GetSample
     {
     }
 }
