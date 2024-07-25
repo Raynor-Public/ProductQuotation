@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProdQ.Applicaton.DTO.Request
 {
-    internal class ClientDTORequest
+    public class ClientDTORequest
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

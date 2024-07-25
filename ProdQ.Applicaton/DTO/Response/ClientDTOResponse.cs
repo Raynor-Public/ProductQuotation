@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProdQ.Applicaton.DTO.Response
 {
-    internal class ClientDTOResponse
+    public class ClientDTOResponse
     {
         public string FullName { get; set; }
         public string Email { get; set; }

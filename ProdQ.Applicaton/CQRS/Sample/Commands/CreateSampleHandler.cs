@@ -35,9 +35,9 @@ namespace ProdQ.Applicaton.CQRS.Sample.Commands
             //    throw new NotImplementedException();
             //}            
 
-            return Task.FromResult(_createSampleRepo.GetSampleRepo(12));
+            //return Task.FromResult(_createSampleRepo.GetSampleRepo(12));
 
-            //return Task.FromResult(users.ToList());
+            return Task.FromResult(users.ToList());
         }
     }
 }
