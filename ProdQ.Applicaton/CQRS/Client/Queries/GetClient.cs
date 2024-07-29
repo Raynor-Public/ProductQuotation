@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using ProdQ.Domain.Entities;
 using ProdQ.Infrastructure.Data.Models;
+using ProdQ.Domain.Shared;
 
 namespace ProdQ.Applicaton.CQRS.Client.Queries
 {
-    public record GetClient(): IQuery<List<ClientDTOResponse>>
+    public record GetClient(): IQuery<Response<List<ClientDTOResponse>>>
     {
     }
 }

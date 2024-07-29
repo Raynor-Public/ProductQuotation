@@ -15,9 +15,15 @@ namespace ProdQ.Applicaton.MappingProfiles
     {
         public AutoMapperConfigProfile() {
 
+            // Map Client to ClientDTOResponse
             CreateMap<Client, ClientDTOResponse>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FirstName + " " + src.LastName))
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Street + ", " + src.State + ", " + src.City + ", " + src.Country));
+
+            // Map List<Client> to Response<ClientDTOResponse>
+            //CreateMap<List<Client>, List<ClientDTOResponse>>()
+            //    .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FirstName + " " + src.LastName))
+            //    .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Street + ", " + src.State + ", " + src.City + ", " + src.Country));
         }
     }
 }

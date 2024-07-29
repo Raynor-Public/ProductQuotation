@@ -7,20 +7,36 @@ using System.Text;
 using System.Threading.Tasks;
 using ProdQ.Domain.Abstraction.Repository;
 using ProdQ.Domain.Entities;
+using AutoMapper;
+using ProdQ.Domain.Shared;
+
 
 namespace ProdQ.Applicaton.CQRS.Client.Queries
 {
-    public record GetClientHandler : IQueryHandler<GetClient, List<ClientDTOResponse>>
+    public record GetClientHandler : IQueryHandler<GetClient, Response<List<ClientDTOResponse>>>
     {
         private readonly IClientRepo _clientRepo;
-        public GetClientHandler(IClientRepo clientRepo) { 
-            _clientRepo = clientRepo;         
+        private readonly IMapper _mapper;
+
+        public GetClientHandler(IClientRepo clientRepo, IMapper mapper) { 
+            _clientRepo = clientRepo;
+            _mapper = mapper;
         }
-        public Task<List<ClientDTOResponse>> Handle(GetClient request, CancellationToken cancellationToken)
+        public async Task<Response<List<ClientDTOResponse>>> Handle(GetClient request, CancellationToken cancellationToken)
         {
-            //var response = new List<ClientDTOResponse>();
-            var response = _clientRepo.GetAllClients();
-            throw new NotImplementedException();
-        }
+            try
+            {                
+                var resultDTO = new Response<List<ClientDTOResponse>>();
+                var repo = await _clientRepo.GetAllClients();
+                resultDTO.Data = _mapper.Map<List<ClientDTOResponse>>(repo);
+                return resultDTO;
+            }
+            catch (Exception ex)
+            {
+                return new Response<List<ClientDTOResponse>>();
+            }
+            
+        }       
+
     }
 }

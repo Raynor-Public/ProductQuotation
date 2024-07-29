@@ -34,10 +34,16 @@ namespace ProdQ.API
             //Adding References from Infrastructure
             services.Scan(s => s
                 .FromAssemblies(ProdQ.Infrastructure.AssemblyReference.Assembly)
+                .AddClasses(false)
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
             );
 
             //MediaTR setting from ProdQ Application project.
             services.AddMediatR(ProdQ.Applicaton.AssemblyReference.Assembly);//
+
+            //AutoMapper setting from ProdQ Application project.
+            services.AddAutoMapper(ProdQ.Applicaton.AssemblyReference.Assembly);
 
             services.AddMicrosoftIdentityWebApiAuthentication(Configuration); //authorization
 

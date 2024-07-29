@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProdQ.Applicaton.CQRS.Client.Queries;
 using ProdQ.Applicaton.DTO.Response;
+using ProdQ.Domain.Entities;
 
 namespace ProdQ.API.Controllers
 {
@@ -16,17 +17,17 @@ namespace ProdQ.API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        public ClientController(IMediator mediatr, IMapper mapper ) { 
+        public ClientController(IMediator mediatr, IMapper mapper) { 
             _mediator = mediatr;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<List<ClientDTOResponse>>GetClients(GetClient request)
+        public async Task<IActionResult> Get()
         {
-            var clients = _mediator.Send(request);
-            var mappedResult = _mapper.Map<List<ClientDTOResponse>>(clients);
-            return await mappedResult;
+            var response = await _mediator.Send(new GetClient());
+            return Ok(response);
         }
+
     }
 }
