@@ -1,8 +1,6 @@
 ﻿using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ProdQ.Applicaton.CQRS.Sample.Commands;
-using ProdQ.Infrastructure.Data.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,13 +23,7 @@ namespace ProdQ.API.Controllers
         public IEnumerable<string> Get()
         {
             return new string[] { "V1 value01", "V1 value 2" };
-        }        
-
-        [HttpGet("byname{name}") ]
-        public async Task<List<User>> GetSample(string name)
-        {
-            return await _mediator.Send(new CreateSample());
-        }
+        }                
 
         // GET api/<ProdQV1Controller>/5
         [HttpGet("{id}")]

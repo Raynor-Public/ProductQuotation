@@ -1,6 +1,5 @@
 ﻿using ProdQ.Domain.Abstraction.Repository;
 using ProdQ.Domain.Entities;
-using ProdQ.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

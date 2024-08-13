@@ -6,6 +6,12 @@ using Asp.Versioning;
 using Microsoft.Extensions.Options;
 using Asp.Versioning.ApiExplorer;
 using MediatR;
+using System.Globalization;
+using ProdQ.Domain.Abstraction.UnitOfWork;
+using ProdQ.Infrastructure.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
+using ProdQ.Infrastructure.Data;
+using ProdQ.API.Middlewares;
 //using Microsoft.AspNetCore.Mvc.Versioning;
 namespace ProdQ.API
 {
@@ -20,7 +26,8 @@ namespace ProdQ.API
 
         // Adding Services
         public void ConfigureServices(IServiceCollection services)
-        {
+        {            
+
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             
@@ -31,21 +38,38 @@ namespace ProdQ.API
                 c.SwaggerDoc("v2", new OpenApiInfo { Title = "Product-Quotation Ver 2.0", Version = "v2" });
             });
 
-            //Adding References from Infrastructure
-            services.Scan(s => s
-                .FromAssemblies(ProdQ.Infrastructure.AssemblyReference.Assembly)
-                .AddClasses(false)
-                .AsImplementedInterfaces()
-                .WithScopedLifetime()
-            );
+            //Database Configuration
+            services.AddDbContext<ApplicationDbContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //Repository Injection
+            #region Adding all Interfaces Repo one by one from Infrastructure without using Unit of Work.
+            //services.Scan(s => s
+            //    .FromAssemblies(ProdQ.Infrastructure.AssemblyReference.Assembly)
+            //    .AddClasses(false)
+            //    .AsImplementedInterfaces()
+            //    .WithScopedLifetime()
+            //);
+            #endregion
+
+            #region Adding only one interface IUnit of Work that wraps all the interface repo.
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            #endregion
+            
 
             //MediaTR setting from ProdQ Application project.
-            services.AddMediatR(ProdQ.Applicaton.AssemblyReference.Assembly);//
+            services.AddMediatR(ProdQ.Applicaton.AssemblyReference.Assembly);
 
             //AutoMapper setting from ProdQ Application project.
             services.AddAutoMapper(ProdQ.Applicaton.AssemblyReference.Assembly);
 
             services.AddMicrosoftIdentityWebApiAuthentication(Configuration); //authorization
+
+            
+
+            //var cultureInfo = new CultureInfo("en-us");
+            //CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            //CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
             services.AddApiVersioning(options =>
             {
@@ -70,11 +94,14 @@ namespace ProdQ.API
                 ApiExplorerOptions.GroupNameFormat = "'v'V";
                 ApiExplorerOptions.SubstituteApiVersionInUrl = true;                
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {            
+        {
+            app.UseMiddleware<ExceptionMiddleware>(); //middleware
+
             app.UseHttpsRedirection();                        
             app.UseStaticFiles();
             app.UseRouting();         
