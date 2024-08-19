@@ -9,5 +9,6 @@ namespace ProdQ.Domain.Abstraction.Repository
 {
     public interface IProductRepository : IBaseRepository<Product>
     {
+        string CustomFnc();
     }
 }

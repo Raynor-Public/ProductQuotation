@@ -1,8 +1,10 @@
-﻿using ProdQ.Domain.Abstraction.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using ProdQ.Domain.Abstraction.Repository;
 using ProdQ.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,44 +19,40 @@ namespace ProdQ.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Add(T entity)
+        public async Task<T> GetAsync(int id)
         {
-            _context.Set<T>().Add(entity);            
+            return await _context.Set<T>().FindAsync(id);
         }
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await _context.Set<T>().ToListAsync();
+        }
+        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _context.Set<T>().Where(predicate).ToListAsync();
+        }
+        public async Task<T> AddAsync(T entity)
+        {
+            var entityEntry = await _context.Set<T>().AddAsync(entity);            
+            await _context.SaveChangesAsync();
+            return entityEntry.Entity;
+        }                
 
         public void AddRange(IEnumerable<T> entities)
         {
-            _context.Set<T>().AddRange(entities);            
+            _context.Set<T>().AddRange(entities);
         }
-
+        public void Update(T entity)
+        {
+            _context.Set<T>().Update(entity);
+        }
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
         }
-
         public void DeleteRange(IEnumerable<T> entities)
         {
             _context.Set<T>().RemoveRange(entities);
-        }
-
-        public IEnumerable<T> Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
-        {
-            return _context.Set<T>().Where(predicate);
-        }
-
-        public T Get(int id)
-        {
-            return _context.Set<T>().Find(id);
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            return _context.Set<T>().ToList();
-        }
-
-        public void Update(T entity)
-        {
-            _context.Set<T>().Update(entity);
         }
     }
 }

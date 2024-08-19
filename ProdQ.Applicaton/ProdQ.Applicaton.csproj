@@ -16,4 +16,15 @@
     <ProjectReference Include="..\ProdQ.Infrastructure\ProdQ.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CQRS\ClientCQ\Commands\" />
+    <Folder Include="CQRS\ClientCQ\Queries\" />
+    <Folder Include="CQRS\ProductCQ\Commands\" />
+    <Folder Include="CQRS\ProductCQ\Queries\" />
+    <Folder Include="CQRS\QouteCQ\Commands\" />
+    <Folder Include="CQRS\QouteCQ\Queries\" />
+    <Folder Include="CQRS\QouteItemCQ\Commands\" />
+    <Folder Include="CQRS\QouteItemCQ\Queries\" />
+  </ItemGroup>
+
 </Project>

@@ -26,8 +26,7 @@ namespace ProdQ.API
 
         // Adding Services
         public void ConfigureServices(IServiceCollection services)
-        {            
-
+        {
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             
@@ -42,7 +41,7 @@ namespace ProdQ.API
             services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //Repository Injection
+            //Repository Middleware injection
             #region Adding all Interfaces Repo one by one from Infrastructure without using Unit of Work.
             //services.Scan(s => s
             //    .FromAssemblies(ProdQ.Infrastructure.AssemblyReference.Assembly)
@@ -54,8 +53,7 @@ namespace ProdQ.API
 
             #region Adding only one interface IUnit of Work that wraps all the interface repo.
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            #endregion
-            
+            #endregion            
 
             //MediaTR setting from ProdQ Application project.
             services.AddMediatR(ProdQ.Applicaton.AssemblyReference.Assembly);
@@ -63,13 +61,7 @@ namespace ProdQ.API
             //AutoMapper setting from ProdQ Application project.
             services.AddAutoMapper(ProdQ.Applicaton.AssemblyReference.Assembly);
 
-            services.AddMicrosoftIdentityWebApiAuthentication(Configuration); //authorization
-
-            
-
-            //var cultureInfo = new CultureInfo("en-us");
-            //CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-            //CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+            services.AddMicrosoftIdentityWebApiAuthentication(Configuration); //authorization                        
 
             services.AddApiVersioning(options =>
             {

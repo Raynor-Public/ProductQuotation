@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using ProdQ.Domain.Abstraction.UnitOfWork;
 using ProdQ.Infrastructure;
 using ProdQ.Infrastructure.UnitOfWork;
 
@@ -13,48 +14,48 @@ namespace ProdQ.API.Controllers
     [Route(template: "api/v{version:apiVersion}/[controller]")] //The version is specified on the link, no manual input of version.
     public class ProductController : ControllerBase
     {
-        //public readonly UnitOfWork _unitOfWork;
-        //public ProductController(UnitOfWork unitOfWork)
-        //{
-        //    _unitOfWork = unitOfWork;
-        //}
-
-        public ProductController()
+        public readonly IUnitOfWork _unitOfWork;
+        public ProductController(IUnitOfWork unitOfWork)
         {
-            
-        }
+            _unitOfWork = unitOfWork;
+        }        
 
         // GET: api/<ProductController>
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            return Ok("Test...");
-            //return Ok(_unitOfWork.ProductRepository.GetAll());
+            var result = await _unitOfWork.ProductRepository.GetAllAsync();
+            return Ok(result);
         }
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
-            return "value";
+            var result = await _unitOfWork.ProductRepository.GetAsync(id);
+            return Ok(result);
         }
 
         // POST api/<ProductController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult> Post([FromBody] Product request)
         {
+            var result = await _unitOfWork.ProductRepository.AddAsync(request);
+            return Ok(result);
         }
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+
         }
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
         }
     }
 }

@@ -31,9 +31,8 @@ namespace ProdQ.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            //var response = await _mediator.Send(new GetClient());
-            //return Ok(response);
-            var a = _unitOfWork.ProductRepository.GetAll();
+            var a = await _unitOfWork.ProductRepository.GetAllAsync();
+            var b = _unitOfWork.ProductRepository.CustomFnc();
             return Ok(a);
         }
 

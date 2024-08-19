@@ -13,5 +13,10 @@ namespace ProdQ.Infrastructure.Repositories
         public ProductRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+        public string CustomFnc()
+        {
+            return "Yowwwww!!!!";
+        }
     }
 }

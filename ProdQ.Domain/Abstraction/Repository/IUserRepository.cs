@@ -1,4 +1,5 @@
-﻿using ProdQ.Infrastructure;
+﻿using ProdQ.Domain.Entities;
+using ProdQ.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
