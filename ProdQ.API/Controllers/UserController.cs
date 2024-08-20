@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ProdQ.Applicaton.CQRS.UserCQ.Commands;
 using ProdQ.Applicaton.CQRS.UserCQ.Queries;
 using ProdQ.Domain.Abstraction.UnitOfWork;
 using ProdQ.Infrastructure;
@@ -25,33 +26,24 @@ namespace ProdQ.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var request = new GetAllUsersQuery();
-            try
-            {                
-                return Ok(await _mediator.Send(request));
-            }
-            catch (Exception ex)
-            {
-                return Ok("Error");
-            }
-            //return 
-            //var result = await _unitOfWork.UserRepository.GetAllAsync();
-            //return result;
+            var request = new GetAllUsersQuery();            
+            return Ok(await _mediator.Send(request));            
         }
 
         // GET api/<UserController>/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult> Get(int id)
-        //{
-        //    //var result = await _unitOfWork.UserRepository.GetAsync(id);
-        //    return Ok("successsssssssssssssssss");
-        //}
+        [HttpGet("{id}")]
+        public async Task<ActionResult> Get(int id)
+        {            
+            var req = new GetUserByIdQuery(id);            
+            return Ok(await _mediator.Send(req));
+        }
 
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult>AddUser([FromBody] CreateUserCammand request)
         {
-
+            var req = await _mediator.Send(request);
+            return Ok(req);
         }
 
         // PUT api/<UserController>/5

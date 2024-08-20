@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ProdQ.Applicaton.Abstraction;
 using ProdQ.Applicaton.DTO.Response;
-using ProdQ.Applicaton.DTO.Response.Base;
+using ProdQ.Domain.Shared;
 using ProdQ.Domain.Abstraction.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -25,13 +25,25 @@ namespace ProdQ.Applicaton.CQRS.UserCQ.Queries
         public async Task<Response<List<UserDTOResponse>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {            
             var response = new Response<List<UserDTOResponse>>();
-
-            var dt = await _unitOfWork.UserRepository.GetAllAsync();
-            if (dt != null)
+            try
             {
-                response.Success = true;
-                response.Message = "Record found successfully";
-                response.Data = _mapper.Map<List<UserDTOResponse>>(dt);
+                var dt = await _unitOfWork.UserRepository.GetAllAsync();
+                if (dt != null)
+                {
+                    response.Success = true;
+                    response.Message = "Record found successfully";
+                    response.Data = _mapper.Map<List<UserDTOResponse>>(dt);
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "Not Found.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
             }            
             return response;
         }

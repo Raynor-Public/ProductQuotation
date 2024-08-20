@@ -8,6 +8,7 @@ namespace ProdQ.Applicaton.DTO.Response
 {
     public class UserDTOResponse
     {
+        public int Id { get; set; }
         public string Role { get; set; } = null!;
         public string? Fullname { get; set; }        
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using ProdQ.Domain.Entities;
 using ProdQ.Infrastructure;
 
 namespace ProdQ.Infrastructure.Data;

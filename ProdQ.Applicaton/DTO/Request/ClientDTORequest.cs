@@ -17,5 +17,9 @@ namespace ProdQ.Applicaton.DTO.Request
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
+
+        public string Role { get; set; } = null!;
+        public DateOnly? Createddate { get; set; }
+        public int? Createdby { get; set; }
     }
 }

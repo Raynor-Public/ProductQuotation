@@ -29,6 +29,12 @@ namespace ProdQ.Applicaton.MappingProfiles
             CreateMap<User, UserDTOResponse>()
                 .ForMember(dest => dest.Summary, opt => opt.MapFrom(src => $"Summary : Created by {src.Createdby} on {src.Createddate}"));
 
+            CreateMap<UserDTORequest, User>()
+                .ForMember(dest => dest.Fullname, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                .ForMember(dest => dest.Createddate, opt => opt.MapFrom(src => DateOnly.FromDateTime(DateTime.Now)))
+                .ForMember(dest => dest.Createdby, opt => opt.MapFrom(src => 1)); //temp set to 1 as admin
+            
+
 
             //Products
 
@@ -42,5 +48,11 @@ namespace ProdQ.Applicaton.MappingProfiles
 
 
         }
+
+        private static DateTime GetNow()
+        {
+            return DateTime.Now;
+        }
+
     }
 }
