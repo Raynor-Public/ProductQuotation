@@ -9,12 +9,13 @@ namespace ProdQ.Applicaton.DTO.Response
     public class QouteItemDTOResponse
     {
         //To discussed..
+        public int Id { get; set; }
         public int QouteId { get; set; }
 
         public int ProductId { get; set; }
 
         public int? Quantity { get; set; }
 
-        public List<OouteDTOResponse> DetailData { get; set; } = new List<OouteDTOResponse>();
+        //public List<QouteDTOResponse> DetailData { get; set; } = new List<QouteDTOResponse>();        
     }
 }

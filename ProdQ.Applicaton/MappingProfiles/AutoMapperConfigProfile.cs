@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using ProdQ.Domain.Entities;
 using ProdQ.Applicaton.DTO.Response;
 using ProdQ.Infrastructure;
+using Microsoft.Data.SqlClient;
 
 namespace ProdQ.Applicaton.MappingProfiles
 {
@@ -16,7 +17,7 @@ namespace ProdQ.Applicaton.MappingProfiles
     {
         public AutoMapperConfigProfile() {
 
-            // Map Client to ClientDTOResponse
+            // Map Client 
             CreateMap<Client, ClientDTOResponse>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FirstName + " " + src.LastName))
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Street + ", " + src.State + ", " + src.City + ", " + src.Country));
@@ -33,16 +34,18 @@ namespace ProdQ.Applicaton.MappingProfiles
                 .ForMember(dest => dest.Fullname, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.Createddate, opt => opt.MapFrom(src => DateOnly.FromDateTime(DateTime.Now)))
                 .ForMember(dest => dest.Createdby, opt => opt.MapFrom(src => 1)); //temp set to 1 as admin
-            
-
 
             //Products
+            CreateMap<Product, ProductDTOResponse>()
+                .ForMember(dest => dest.Summary, opt => opt.MapFrom(src => $"This product name  {src.Description} is created by {src.Createdby} on {src.Createddate}"));
 
-
+            CreateMap<ProductDTORequest, Product>()
+                .ForMember(dest => dest.Createddate, opt => opt.MapFrom(src => DateOnly.FromDateTime(DateTime.Now)))
+                .ForMember(dest => dest.Createdby, opt => opt.MapFrom(src => 1)); //temp set to 1 as admin
 
             //Qoute
-
-
+            CreateMap<Qoute, QouteDTOResponse>().ReverseMap();
+            CreateMap<QouteDTORequest, Qoute>().ReverseMap();
 
             //QouteItmes
 

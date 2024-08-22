@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProdQ.Domain.Abstraction.Repository;
 using ProdQ.Infrastructure.Data;
 using System;
@@ -42,13 +43,17 @@ namespace ProdQ.Infrastructure.Repositories
         {
             _context.Set<T>().AddRange(entities);
         }
-        public void Update(T entity)
+        public async Task<T> Update(T entity)
         {
-            _context.Set<T>().Update(entity);
+           var updateDt = _context.Set<T>().Update(entity).Entity;
+            await _context.SaveChangesAsync();
+            return updateDt;
         }
-        public void Delete(T entity)
+        public async Task<T> DeleteAsync(T entity)
         {
-            _context.Set<T>().Remove(entity);
+            var entityEntry = _context.Set<T>().Remove(entity).Entity;
+            await _context.SaveChangesAsync();
+            return entityEntry;
         }
         public void DeleteRange(IEnumerable<T> entities)
         {

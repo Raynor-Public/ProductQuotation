@@ -1,5 +1,7 @@
 ﻿using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ProdQ.Applicaton.CQRS.ProductCQ.Queries;
 using ProdQ.Domain.Abstraction.UnitOfWork;
 using ProdQ.Infrastructure;
 using ProdQ.Infrastructure.UnitOfWork;
@@ -14,34 +16,33 @@ namespace ProdQ.API.Controllers
     [Route(template: "api/v{version:apiVersion}/[controller]")] //The version is specified on the link, no manual input of version.
     public class ProductController : ControllerBase
     {
-        public readonly IUnitOfWork _unitOfWork;
-        public ProductController(IUnitOfWork unitOfWork)
+        IMediator _mediator;
+        public ProductController(IMediator mediator)
         {
-            _unitOfWork = unitOfWork;
+            _mediator = mediator;
         }        
 
         // GET: api/<ProductController>
         [HttpGet]
         public async Task<ActionResult> Get()
-        {
-            var result = await _unitOfWork.ProductRepository.GetAllAsync();
-            return Ok(result);
+        {            
+            var request = new GetAllProductQuery();
+            return Ok(await _mediator.Send(request));
         }
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id)
         {
-            var result = await _unitOfWork.ProductRepository.GetAsync(id);
-            return Ok(result);
+            return Ok("");
         }
 
         // POST api/<ProductController>
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Product request)
         {
-            var result = await _unitOfWork.ProductRepository.AddAsync(request);
-            return Ok(result);
+            //var result = await _unitOfWork.ProductRepository.AddAsync(request);
+            return Ok("");
         }
 
         // PUT api/<ProductController>/5

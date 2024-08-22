@@ -14,8 +14,8 @@ namespace ProdQ.Domain.Abstraction.Repository
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
         Task<T> AddAsync(T entity);
         void AddRange(IEnumerable<T> entities);
-        void Update(T entity);
-        void Delete(T entity);
+        Task<T> Update(T entity);
+        Task<T> DeleteAsync(T entity);
         void DeleteRange(IEnumerable<T> entities);
     }
 }

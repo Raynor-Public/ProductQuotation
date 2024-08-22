@@ -24,7 +24,7 @@ namespace ProdQ.API.Controllers
 
         // GET: api/<UserController>
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult> GetAll()
         {
             var request = new GetAllUsersQuery();            
             return Ok(await _mediator.Send(request));            
@@ -47,17 +47,20 @@ namespace ProdQ.API.Controllers
         }
 
         // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<ActionResult> Put([FromBody] UpdateUserCammand request)
         {
-
+            //var req = new UpdateUserCammand(request.reqParams);            
+            return Ok(await _mediator.Send(request));            
         }
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-
+            var req = new DeleteUserCammand(id);
+            var result = await _mediator.Send(req);
+            return Ok(result);
         }
     }
 }
