@@ -48,8 +48,8 @@ namespace ProdQ.Applicaton.MappingProfiles
             CreateMap<QouteDTORequest, Qoute>().ReverseMap();
 
             //QouteItmes
-
-
+            CreateMap<QouteItem, QouteItemDTOResponse>().ReverseMap();
+            CreateMap<QouteItemDTORequest, QouteItem>().ReverseMap();
         }
 
         private static DateTime GetNow()
