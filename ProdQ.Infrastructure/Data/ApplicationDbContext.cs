@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using ProdQ.Infrastructure;
 
 namespace ProdQ.Infrastructure.Data;
 
@@ -73,14 +72,21 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<QouteItem>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__qouteIte__3213E83FA3B74D5C");
+            entity.HasKey(e => e.Id).HasName("PK__qouteIte__3213E83F910140F5");
 
             entity.ToTable("qouteItem");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Price)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("price");
             entity.Property(e => e.ProductId).HasColumnName("productId");
             entity.Property(e => e.QouteId).HasColumnName("qouteId");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+            entity.HasOne(d => d.Qoute).WithMany(p => p.QouteItems)
+                .HasForeignKey(d => d.QouteId)
+                .HasConstraintName("FK_qouteItem_qouteId");
         });
 
         modelBuilder.Entity<User>(entity =>
