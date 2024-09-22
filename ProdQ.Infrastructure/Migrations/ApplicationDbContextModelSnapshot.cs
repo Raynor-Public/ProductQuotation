@@ -22,7 +22,7 @@ namespace ProdQ.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProdQ.Infrastructure.Product", b =>
+            modelBuilder.Entity("ProdQ.Infrastructure.Data.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,7 +62,7 @@ namespace ProdQ.Infrastructure.Migrations
                     b.ToTable("product", (string)null);
                 });
 
-            modelBuilder.Entity("ProdQ.Infrastructure.Qoute", b =>
+            modelBuilder.Entity("ProdQ.Infrastructure.Data.Qoute", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -100,7 +100,7 @@ namespace ProdQ.Infrastructure.Migrations
                     b.ToTable("qoute", (string)null);
                 });
 
-            modelBuilder.Entity("ProdQ.Infrastructure.QouteItem", b =>
+            modelBuilder.Entity("ProdQ.Infrastructure.Data.QouteItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -127,7 +127,7 @@ namespace ProdQ.Infrastructure.Migrations
                     b.ToTable("qouteItem", (string)null);
                 });
 
-            modelBuilder.Entity("ProdQ.Infrastructure.User", b =>
+            modelBuilder.Entity("ProdQ.Infrastructure.Data.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

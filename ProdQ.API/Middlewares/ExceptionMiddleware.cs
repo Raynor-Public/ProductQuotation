@@ -23,18 +23,6 @@ namespace ProdQ.API.Middlewares
             }
         }
 
-        //private static Task HandleExceptionAsync(HttpContext context, Exception exception)
-        //{
-        //    var statusCode = HttpStatusCode.InternalServerError;
-        //    var result = JsonConvert.SerializeObject(new { error = exception.Message });
-
-        //    context.Response.ContentType = "application/json";
-        //    context.Response.StatusCode = (int)statusCode;
-
-        //    return context.Response.WriteAsync(result);
-        //}
-
-
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             HttpStatusCode statusCode;
