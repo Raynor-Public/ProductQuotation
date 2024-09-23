@@ -16,4 +16,8 @@
     <ProjectReference Include="..\ProdQ.Infrastructure\ProdQ.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CQRS\" />
+  </ItemGroup>
+
 </Project>

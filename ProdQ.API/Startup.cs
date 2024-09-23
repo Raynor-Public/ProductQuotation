@@ -10,7 +10,7 @@ using System.Globalization;
 using ProdQ.Domain.Abstraction.UnitOfWork;
 using ProdQ.Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
-using ProdQ.Infrastructure.Data;
+
 using ProdQ.API.Middlewares;
 //using Microsoft.AspNetCore.Mvc.Versioning;
 namespace ProdQ.API
@@ -38,8 +38,8 @@ namespace ProdQ.API
             });
 
             //Database Configuration
-            services.AddDbContext<ApplicationDbContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<ApplicationDbContext>(options => 
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //Repository Middleware injection
             #region Adding all Interfaces Repo one by one from Infrastructure without using Unit of Work.

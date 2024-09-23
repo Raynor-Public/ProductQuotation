@@ -9,10 +9,10 @@ namespace ProdQ.Domain.Abstraction.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        IProductRepository ProductRepository { get; }
-        IUserRepository UserRepository { get; }
-        IQouteRepository QouteRepository { get; }
-        IQouteItemRepository QouteItemRepository { get; }
+        //IProductRepository ProductRepository { get; }
+        //IUserRepository UserRepository { get; }
+        //IQouteRepository QouteRepository { get; }
+        //IQouteItemRepository QouteItemRepository { get; }
         int Save();
         
     }

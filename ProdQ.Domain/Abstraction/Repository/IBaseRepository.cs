@@ -9,13 +9,13 @@ namespace ProdQ.Domain.Abstraction.Repository
 {
     public interface IBaseRepository<T> where T : class
     {
-        Task<T> GetAsync(int id);
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
-        Task<T> AddAsync(T entity);
-        void AddRange(IEnumerable<T> entities);
-        Task<T> Update(T entity);
-        Task<T> DeleteAsync(T entity);
-        void DeleteRange(IEnumerable<T> entities);
+        //Task<T> GetAsync(int id);
+        //Task<IEnumerable<T>> GetAllAsync();
+        //Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
+        //Task<T> AddAsync(T entity);
+        //void AddRange(IEnumerable<T> entities);
+        //Task<T> Update(T entity);
+        //Task<T> DeleteAsync(T entity);
+        //void DeleteRange(IEnumerable<T> entities);
     }
 }
